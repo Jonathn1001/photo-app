@@ -1,4 +1,4 @@
-import { prisma } from '../prisma.js';
+import { prisma } from "../prisma.js";
 
 export const commentsRepo = {
   create(data: { photoId: string; authorId: string; content: string }) {
