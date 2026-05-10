@@ -1,0 +1,39 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["photos"]
+}
+
+model Photo {
+  id        String   @id @default(cuid())
+  ownerId   String
+  url       String
+  publicId  String   @unique
+  width     Int
+  height    Int
+  bytes     Int
+  format    String
+  createdAt DateTime @default(now())
+
+  comments  Comment[]
+
+  @@index([ownerId, createdAt(sort: Desc)])
+  @@schema("photos")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  photoId   String
+  authorId  String
+  content   String   @db.VarChar(500)
+  createdAt DateTime @default(now())
+  photo     Photo    @relation(fields: [photoId], references: [id], onDelete: Cascade)
+
+  @@index([photoId, createdAt(sort: Desc)])
+  @@schema("photos")
+}
