@@ -48,6 +48,9 @@ importers:
 
   services/photo-service:
     dependencies:
+      '@asteasolutions/zod-to-openapi':
+        specifier: ^7.3.0
+        version: 7.3.4(zod@3.25.76)
       '@photo-app/shared':
         specifier: workspace:*
         version: link:../../packages/shared

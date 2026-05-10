@@ -5,6 +5,9 @@ build/
 coverage/
 *.log
 
+# Prisma per-service generated clients (output = "../generated/prisma" in each service's schema)
+services/*/generated/
+
 .env
 .env.*
 !.env.example
