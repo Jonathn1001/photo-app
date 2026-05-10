@@ -101,9 +101,45 @@ pnpm dev
 
 The Next.js app will be at `http://localhost:3000`. Per-service Swagger UI at `:4001/docs` and `:4002/docs`. Aggregated docs at `http://localhost:3000/api/docs`.
 
+## Deployment
+
+Production runs on three providers, wired together by GitHub Actions:
+
+| Component | Host | URL |
+| --- | --- | --- |
+| Frontend (Next.js + gateway) | Vercel | _filled in on first deploy_ |
+| `user-service` | Render (Web Service) | _internal_ |
+| `photo-service` | Render (Web Service) | _internal_ |
+| Database | Neon PostgreSQL (one DB, two schemas) | — |
+| Image storage | Cloudinary | — |
+
+**CI/CD** (`.github/workflows/`):
+
+- `ci.yml` — runs on every PR and push to `main`: lint, typecheck, build, full vitest suite against an ephemeral Postgres 16 service, OpenAPI drift check, `pnpm audit`.
+- `deploy.yml` — runs on push to `main`: applies Prisma migrations to Neon for both services, then triggers Render deploy hooks. Vercel auto-deploys via its native GitHub integration.
+
+**Required GitHub repository secrets:**
+
+| Secret | Used by | Purpose |
+| --- | --- | --- |
+| `CI_JWT_SECRET` | CI | 32+ char HS256 secret for user-service tests |
+| `CI_JWT_REFRESH_SECRET` | CI | 32+ char HS256 secret for refresh-token tests |
+| `NEON_DATABASE_URL_USERS` | Deploy | Neon URL with `?schema=users` |
+| `NEON_DATABASE_URL_PHOTOS` | Deploy | Neon URL with `?schema=photos` |
+| `RENDER_DEPLOY_HOOK_USER` | Deploy | Render deploy-hook URL for user-service |
+| `RENDER_DEPLOY_HOOK_PHOTO` | Deploy | Render deploy-hook URL for photo-service |
+
+**Provider-side environment variables** (set in each provider's dashboard, not GitHub):
+
+- **Render — `user-service`:** `DATABASE_URL` (Neon, `?schema=users`), `JWT_SECRET`, `JWT_REFRESH_SECRET`, `INTERNAL_SERVICE_SECRET`, `PORT=4001`.
+- **Render — `photo-service`:** `DATABASE_URL` (Neon, `?schema=photos`), `JWT_SECRET` (same as user-service), `INTERNAL_SERVICE_SECRET` (same), `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_UPLOAD_PRESET=photo_app_signed`, `PORT=4002`.
+- **Vercel — web:** `NEXTAUTH_SECRET`, `NEXTAUTH_URL` (your Vercel domain), `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `USER_SERVICE_URL` (Render user URL), `PHOTO_SERVICE_URL` (Render photo URL), `INTERNAL_SERVICE_SECRET` (must match the two Render services).
+
+Google Cloud Console must whitelist `https://<vercel-domain>/api/auth/callback/google` as an OAuth 2.0 redirect URI.
+
 ## Live URL
 
-_Deployment pending — link will be added once the cloud setup is complete._
+_Filled in once deployed._
 
 ## License
 
