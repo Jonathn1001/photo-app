@@ -2,8 +2,6 @@
 
 A photo upload and comment web app. Users sign in with Google, upload photos to Cloudinary, and comment on photos. Implemented as a small distributed system: a Next.js frontend that doubles as an API gateway, two Express microservices, and PostgreSQL.
 
-> **Status:** in development. Implementation tracked in `docs/superpowers/plans/2026-05-10-photo-app.md` (kept locally).
-
 ---
 
 ## What it does
@@ -43,20 +41,20 @@ A photo upload and comment web app. Users sign in with Google, upload photos to 
 
 ## Tech stack
 
-| Layer | Choice |
-|---|---|
-| Frontend | Next.js 15 (App Router), React 19, TypeScript, Ant Design 5 |
-| API gateway | Next.js API routes (server components + route handlers) |
-| Backend | Two Express 4 services, Prisma 5 ORM, layered architecture (controller → service → repository) |
-| Auth | NextAuth (Google provider) → app-issued JWT (HS256) + rotating refresh tokens |
-| Database | PostgreSQL 16 (Neon in production), one DB with two schemas — one per service |
-| Image storage | Cloudinary (signed direct upload, transformations, CDN) |
-| Validation | Zod schemas shared across frontend + gateway + services |
-| API docs | OpenAPI 3.1 generated from Zod via `zod-to-openapi`, Swagger UI per service + aggregated at `/api/docs` |
-| Logging | pino (JSON), strict redaction of secrets/PII, request-id propagation across services |
-| Metrics | `prom-client`, `/metrics` endpoint per service (Prometheus format) |
-| Testing | Vitest + supertest integration tests against a real Postgres |
-| CI/CD | GitHub Actions (lint/typecheck/test/audit/openapi-drift) → Vercel + Render + Neon |
+| Layer         | Choice                                                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------------------- |
+| Frontend      | Next.js 15 (App Router), React 19, TypeScript, Ant Design 5                                             |
+| API gateway   | Next.js API routes (server components + route handlers)                                                 |
+| Backend       | Two Express 4 services, Prisma 5 ORM, layered architecture (controller → service → repository)          |
+| Auth          | NextAuth (Google provider) → app-issued JWT (HS256) + rotating refresh tokens                           |
+| Database      | PostgreSQL 16 (Neon in production), one DB with two schemas — one per service                           |
+| Image storage | Cloudinary (signed direct upload, transformations, CDN)                                                 |
+| Validation    | Zod schemas shared across frontend + gateway + services                                                 |
+| API docs      | OpenAPI 3.1 generated from Zod via `zod-to-openapi`, Swagger UI per service + aggregated at `/api/docs` |
+| Logging       | pino (JSON), strict redaction of secrets/PII, request-id propagation across services                    |
+| Metrics       | `prom-client`, `/metrics` endpoint per service (Prometheus format)                                      |
+| Testing       | Vitest + supertest integration tests against a real Postgres                                            |
+| CI/CD         | GitHub Actions (lint/typecheck/test/audit/openapi-drift) → Vercel + Render + Neon                       |
 
 ## Repository layout
 
