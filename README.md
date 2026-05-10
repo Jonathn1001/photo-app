@@ -139,8 +139,8 @@ Google Cloud Console must whitelist `https://<vercel-domain>/api/auth/callback/g
 
 ## Live URL
 
-_Filled in once deployed._
-
+[https://photo-app-web-pfes.vercel.app/login_
+](https://photo-app-web-pfes.vercel.app/login)
 ## License
 
 Private take-home project.
