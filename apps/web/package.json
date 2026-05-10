@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "mkdir -p public/openapi && cp ../../services/user-service/openapi.json public/openapi/user.json && cp ../../services/photo-service/openapi.json public/openapi/photo.json",
+    "prebuild": "pnpm --filter @photo-app/shared build && mkdir -p public/openapi && cp ../../services/user-service/openapi.json public/openapi/user.json && cp ../../services/photo-service/openapi.json public/openapi/photo.json",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
