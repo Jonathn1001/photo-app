@@ -4,6 +4,14 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  NEXTAUTH_SECRET: test-nextauth-secret-1234567890
+  GOOGLE_CLIENT_ID: ci-stub
+  GOOGLE_CLIENT_SECRET: ci-stub
+  USER_SERVICE_URL: http://localhost:4001
+  PHOTO_SERVICE_URL: http://localhost:4002
+  INTERNAL_SERVICE_SECRET: test-internal-secret-1234
+
 jobs:
   lint-typecheck:
     runs-on: ubuntu-latest
