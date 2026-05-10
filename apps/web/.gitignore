@@ -5,6 +5,7 @@ out/
 # Generated files
 next-env.d.ts
 tsconfig.tsbuildinfo
+public/openapi/
 
 # Local env files (root .gitignore handles .env.*)
 # node_modules handled by root

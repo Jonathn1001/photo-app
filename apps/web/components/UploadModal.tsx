@@ -1,6 +1,7 @@
 'use client';
-import { Button, Modal, Upload, message } from 'antd';
+import { Button, Modal, Upload, App } from 'antd';
 import type { UploadProps } from 'antd';
+import { PictureOutlined, UploadOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient, ApiError } from '@/lib/api-client';
@@ -10,6 +11,7 @@ export function UploadModal() {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const router = useRouter();
+  const { message } = App.useApp();
 
   const beforeUpload: UploadProps['beforeUpload'] = (file) => {
     if (!(ALLOWED_MIME as readonly string[]).includes(file.type)) {
@@ -67,18 +69,57 @@ export function UploadModal() {
 
   return (
     <>
-      <Button type="primary" onClick={() => setOpen(true)} style={{ marginBottom: 16 }}>
-        Upload Photo
+      <Button
+        type="primary"
+        icon={<UploadOutlined />}
+        onClick={() => setOpen(true)}
+        style={{ marginBottom: 8 }}
+      >
+        New upload
       </Button>
-      <Modal open={open} onCancel={() => setOpen(false)} footer={null} title="Upload">
+      <Modal
+        open={open}
+        onCancel={() => !busy && setOpen(false)}
+        footer={null}
+        title="New post"
+        centered
+        width={520}
+        destroyOnHidden
+      >
+        <p style={{ color: '#737373', marginTop: -4, marginBottom: 20 }}>
+          Share a photo with your circle.
+        </p>
         <Upload.Dragger
           beforeUpload={beforeUpload}
           customRequest={({ file }) => onFiles(file as File)}
           disabled={busy}
           maxCount={1}
           showUploadList={false}
+          style={{ borderRadius: 16, padding: '12px 0' }}
         >
-          <p>Click or drag a JPG/PNG/WebP (max 5 MB)</p>
+          <p className="ant-upload-drag-icon" style={{ marginBottom: 12 }}>
+            <PictureOutlined style={{ fontSize: 36, color: '#525252' }} />
+          </p>
+          <p
+            className="ant-upload-text"
+            style={{ fontSize: 15, fontWeight: 500, marginBottom: 4, color: '#171717' }}
+          >
+            {busy ? 'Uploading…' : 'Drop your photo here'}
+          </p>
+          <p className="ant-upload-hint" style={{ fontSize: 13, color: '#737373' }}>
+            or click to browse from your device
+          </p>
+          <div
+            style={{
+              marginTop: 16,
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: '#a3a3a3',
+              letterSpacing: '0.08em',
+            }}
+          >
+            JPG · PNG · WEBP · MAX 5MB
+          </div>
         </Upload.Dragger>
       </Modal>
     </>
