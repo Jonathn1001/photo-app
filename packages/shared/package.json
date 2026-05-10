@@ -1,0 +1,34 @@
+{
+  "name": "@photo-app/shared",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./errors": "./dist/errors/index.js",
+    "./schemas": "./dist/schemas/index.js",
+    "./logging": "./dist/logging/index.js",
+    "./openapi": "./dist/openapi/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "openapi:generate": "tsx src/openapi/generate.ts"
+  },
+  "dependencies": {
+    "zod": "^3.23.8",
+    "pino": "^9.5.0",
+    "ulid": "^2.3.0",
+    "@asteasolutions/zod-to-openapi": "^7.3.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.1",
+    "vitest": "^2.1.2",
+    "typescript": "^5.6.3",
+    "eslint": "^9.12.0"
+  }
+}
