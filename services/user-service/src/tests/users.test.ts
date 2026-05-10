@@ -36,7 +36,7 @@ describe('GET /users/:id', () => {
   it('returns public profile', async () => {
     const res = await request(app).get(`/users/${userId}`).set('authorization', `Bearer ${token}`);
     expect(res.status).toBe(200);
-    expect(res.body.data).toEqual({ id: userId, name: 'U', avatarUrl: null });
+    expect(res.body.data).toEqual({ id: userId, name: 'U', handle: 'u', avatarUrl: null });
   });
   it('404 for missing', async () => {
     const res = await request(app).get('/users/missing').set('authorization', `Bearer ${token}`);
