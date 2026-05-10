@@ -1,0 +1,10 @@
+# Next.js build output
+.next/
+out/
+
+# Generated files
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Local env files (root .gitignore handles .env.*)
+# node_modules handled by root
