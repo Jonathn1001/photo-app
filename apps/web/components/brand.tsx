@@ -41,7 +41,7 @@ export function BrandLockup({ size = 32 }: { size?: number }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
       <BrandMark size={size} />
-      <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em' }}>Lumen</span>
+      <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em' }}>Comsuon</span>
     </span>
   );
 }

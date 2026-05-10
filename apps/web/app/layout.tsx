@@ -8,7 +8,7 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
 });
 
-export const metadata = { title: 'Lumen — quiet place for photos' };
+export const metadata = { title: 'Comsuon — quiet place for photos' };
 
 const theme = {
   token: {
@@ -38,8 +38,11 @@ const theme = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
-      <body style={{ margin: 0, fontFamily: jakarta.style.fontFamily, background: '#fafafa' }}>
+    <html lang="en" className={jakarta.variable} suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        style={{ margin: 0, fontFamily: jakarta.style.fontFamily, background: '#fafafa' }}
+      >
         <AntdRegistry>
           <ConfigProvider theme={theme}>
             <AntdApp>{children}</AntdApp>

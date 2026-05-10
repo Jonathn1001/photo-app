@@ -4,7 +4,9 @@ import { headers } from 'next/headers';
 import { Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { getSessionCached, getAccessToken } from '@/lib/session';
-import { BrandLockup, GradientAvatar } from '@/components/brand';
+import { signOut } from '@/lib/auth';
+import { BrandLockup } from '@/components/brand';
+import { UserMenu } from '@/components/UserMenu';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +35,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const me = await getMe();
   const userId = me?.id ?? (session as { userId?: string }).userId ?? '';
   const name = me?.name ?? 'You';
+
+  async function signOutAction() {
+    'use server';
+    await signOut({ redirectTo: '/login' });
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
@@ -76,9 +83,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                 Upload
               </Button>
             </Link>
-            <Link href={`/profile/${userId}`} aria-label="Profile">
-              <GradientAvatar name={name} src={me?.avatarUrl ?? undefined} size={32} />
-            </Link>
+            <UserMenu
+              userId={userId}
+              name={name}
+              avatarUrl={me?.avatarUrl}
+              signOutAction={signOutAction}
+            />
           </div>
         </div>
       </header>

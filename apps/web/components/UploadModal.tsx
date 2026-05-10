@@ -84,7 +84,7 @@ export function UploadModal() {
         title="New post"
         centered
         width={520}
-        destroyOnClose
+        destroyOnHidden
       >
         <p style={{ color: '#737373', marginTop: -4, marginBottom: 20 }}>
           Share a photo with your circle.

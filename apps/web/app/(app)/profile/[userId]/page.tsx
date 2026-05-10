@@ -6,7 +6,7 @@ import type { FeedPhoto } from '@/components/PhotoCard';
 
 export const dynamic = 'force-dynamic';
 
-type User = { id: string; name: string; email: string; avatarUrl: string | null };
+type User = { id: string; name: string; handle: string; avatarUrl: string | null };
 
 async function fetchJson<T>(url: string, token: string, requestId: string): Promise<T> {
   const r = await fetch(url, {
@@ -31,7 +31,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
     ),
   ]);
 
-  const handle = user.email.split('@')[0];
+  const handle = user.handle;
 
   return (
     <div>

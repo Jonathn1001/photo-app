@@ -10,6 +10,7 @@ export const usersService = {
   async getPublicProfile(id: string) {
     const user = await usersRepo.findById(id);
     if (!user) throw new AppError(ErrorCode.PA_RES_001);
-    return { id: user.id, name: user.name, avatarUrl: user.avatarUrl };
+    const handle = user.email.split('@')[0];
+    return { id: user.id, name: user.name, avatarUrl: user.avatarUrl, handle };
   },
 };
