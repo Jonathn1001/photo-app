@@ -107,7 +107,7 @@ Production runs on three providers, wired together by GitHub Actions:
 
 | Component | Host | URL |
 | --- | --- | --- |
-| Frontend (Next.js + gateway) | Vercel | _filled in on first deploy_ |
+| Frontend (Next.js + gateway) | Vercel | https://photo-app-web-one.vercel.app |
 | `user-service` | Render (Web Service) | _internal_ |
 | `photo-service` | Render (Web Service) | _internal_ |
 | Database | Neon PostgreSQL (one DB, two schemas) | — |
@@ -139,8 +139,8 @@ Google Cloud Console must whitelist `https://<vercel-domain>/api/auth/callback/g
 
 ## Live URL
 
-[https://photo-app-web-pfes.vercel.app/login_
-](https://photo-app-web-pfes.vercel.app/login)
+https://photo-app-web-one.vercel.app
+
 ## License
 
 Private take-home project.
